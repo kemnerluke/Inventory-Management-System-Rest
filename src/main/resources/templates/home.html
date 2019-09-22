@@ -186,12 +186,8 @@
 							<td th:text="${tempOrderLine.product.name}" />
 							<td th:text="${tempOrderLine.product.price}" />
 							<td>
-								<button type="button" class="btn btn-danger">
-									<i class="fa fa-minus"></i>
-								</button> <a th:text="${tempOrderLine.quantity}"></a>
-								<button type="button" class="btn btn-success">
-									<i class="fa fa-plus"></i>
-								</button>
+								 <a th:text="${tempOrderLine.quantity}"></a>
+								
 							</td>
 							<td><a
 								th:href="@{'/homeController/delete?orderLineId=' +${tempOrderLine.orderLineId} +'&orderNumber='+ ${formOrderHeader.number} }"
