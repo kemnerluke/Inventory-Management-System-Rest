@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.luv2code.InventoryManagement.dao.OrderLineDAO;
+import com.luv2code.InventoryManagement.dao.OrderLineDAO;
 import com.luv2code.InventoryManagement.dto.OrderLineDTO;
+import com.luv2code.InventoryManagement.entity.OrderLine;
 import com.luv2code.InventoryManagement.entity.OrderLine;
 import com.luv2code.InventoryManagement.entity.Product;
 import com.luv2code.InventoryManagement.service.OrderLineService;
@@ -19,46 +21,30 @@ import com.luv2code.InventoryManagement.service.mapper.OrderLineMapper;
 public class OrderLineServiceImpl implements OrderLineService {
 
 	@Autowired
-	OrderLineDAO orderLineDAO;
-
-	@Autowired
-	OrderLineMapper orderLineMapper;
+	private OrderLineDAO orderLineDAO;
 
 	@Override
-	public List<OrderLineDTO> getOrderLines() {
-		List<OrderLine> orderLines = orderLineDAO.getOrderLines();
-
-		List<OrderLineDTO> orderLineDTOList = new ArrayList<OrderLineDTO>();
-
-		for (OrderLine ol : orderLines) {
-			orderLineDTOList.add(orderLineMapper.mapToDTO(ol));
-		}
-
-		return orderLineDTOList;
+	@Transactional
+	public List<OrderLine> findAll() {
+		return orderLineDAO.findAll();
 	}
 
 	@Override
-	public void saveOrderLine(OrderLineDTO theOrderLine) {
-		OrderLine orderLine = orderLineMapper.mapToEntity(theOrderLine);
-		orderLineDAO.saveOrderLine(orderLine);
+	@Transactional
+	public OrderLine findById(int theId) {
+		return orderLineDAO.findById(theId);
 	}
 
 	@Override
-	public List<OrderLineDTO> getOrderLinesbyOrderHeaderID(int orderHeaderID) {
-		List<OrderLine> orderLines = orderLineDAO.getOrderLineByOrderHeaderID(orderHeaderID);
-		List<OrderLineDTO> orderLineDTOList = new ArrayList<OrderLineDTO>();
-
-		for (OrderLine ol : orderLines) {
-			orderLineDTOList.add(orderLineMapper.mapToDTO(ol));
-		}
-
-		return orderLineDTOList;
+	@Transactional
+	public void save(OrderLine theOrderLine) {
+		orderLineDAO.save(theOrderLine);
 	}
-	
-	public void deleteOrderLine(int theId) {
-		orderLineDAO.deleteOrderLine(theId);
 
-		
+	@Override
+	@Transactional
+	public void deleteById(int theId) {
+		orderLineDAO.deleteById(theId);
 	}
 
 }

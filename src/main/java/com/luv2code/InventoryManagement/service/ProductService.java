@@ -2,16 +2,16 @@ package com.luv2code.InventoryManagement.service;
 
 import java.util.List;
 
-import com.luv2code.InventoryManagement.dto.ProductDTO;
+import com.luv2code.InventoryManagement.entity.Product;
 
 public interface ProductService {
 	
-	public List<ProductDTO> getProducts();
-
-	public void saveProduct(ProductDTO theProduct);
-
-	public ProductDTO getProducts(int theId);
-
-	public void deleteProduct(int theId);
+	public List<Product> findAll();
+	
+	public Product findById(int theId);
+	
+	public void save(Product theProduct);
+	
+	public void deleteById(int theId);
 
 }

@@ -8,11 +8,11 @@ import com.luv2code.InventoryManagement.entity.OrderLine;
 
 public interface OrderLineDAO {
 	
-	public List<OrderLine> getOrderLines();
+public List<OrderLine> findAll();
 	
-	public void saveOrderLine(OrderLine theOrderLine);
+	public OrderLine findById(int theId);
 	
-	public List<OrderLine> getOrderLineByOrderHeaderID(int orderHeaderId);
-
-	public void deleteOrderLine(int theId);
+	public void save(OrderLine theOrderLine);
+	
+	public void deleteById(int theId);
 }

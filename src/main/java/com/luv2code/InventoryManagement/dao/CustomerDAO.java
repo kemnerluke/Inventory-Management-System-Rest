@@ -3,17 +3,16 @@ package com.luv2code.InventoryManagement.dao;
 import java.util.List;
 
 import com.luv2code.InventoryManagement.entity.Customer;
+import com.luv2code.InventoryManagement.entity.Employee;
 
 public interface CustomerDAO  {
 
-	public List<Customer> getCustomers();
-
-	public void saveCustomer(Customer theCustomer);
-
-	public Customer getCustomer(int theId);
+public List<Customer> findAll();
 	
-	public Customer getCustomer(String email);
-
-	public void deleteCustomer(int theId);
+	public Customer findById(int theId);
+	
+	public void save(Customer theCustomer);
+	
+	public void deleteById(int theId);
 
 }

@@ -14,91 +14,73 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.luv2code.InventoryManagement.dao.CustomerDAO;
 import com.luv2code.InventoryManagement.entity.Customer;
+import com.luv2code.InventoryManagement.entity.Employee;
 
 
 @Repository
 public class CustomerDAOImpl implements CustomerDAO {
 
-	// need to inject the session factory
 	@Autowired
 	private EntityManager entityManager;
-			
+	
+	
 	@Override
-	public List<Customer> getCustomers() {
-		
+	public List<Customer> findAll() {
+
+		// get the current hibernate session
 		Session currentSession = entityManager.unwrap(Session.class);
 		
-		// get the current hibernate session
-
-				
 		// create a query
-		Query<Customer> theQuery = 
+		Query<Customer> theQuery =
 				currentSession.createQuery("from Customer", Customer.class);
 		
 		// execute query and get result list
 		List<Customer> customers = theQuery.getResultList();
-				
+		
 		// return the results		
 		return customers;
 	}
-	
-	@Override
-	public void saveCustomer(Customer theCustomer) {
 
-		// get current hibernate session
-		
-		Session currentSession = entityManager.unwrap(Session.class);
 
-		
-		// save/update the customer
-		currentSession.saveOrUpdate(theCustomer);
-		
-	}
-	
 	@Override
-	public Customer getCustomer(int theId) {
+	public Customer findById(int theId) {
 
 		// get the current hibernate session
-		
 		Session currentSession = entityManager.unwrap(Session.class);
-
 		
-		// now retrieve/read from database using the primary key
-		Customer theCustomer = currentSession.get(Customer.class, theId);
+		// get the employee
+		Customer theCustomer =
+				currentSession.get(Customer.class, theId);
 		
+		// return the employee
 		return theCustomer;
 	}
 
+
 	@Override
-	public void deleteCustomer(int theId) {
+	public void save(Customer theCustomer) {
 
 		// get the current hibernate session
-		
 		Session currentSession = entityManager.unwrap(Session.class);
-
-//		Session currentSession = entityManager.getCurrentSession();
 		
+		// save employee
+		currentSession.saveOrUpdate(theCustomer);
+	}
+
+
+	@Override
+	public void deleteById(int theId) {
+		
+		// get the current hibernate session
+		Session currentSession = entityManager.unwrap(Session.class);
+				
 		// delete object with primary key
 		Query theQuery = 
-				currentSession.createQuery("delete from Customer where id=:customerId");
+				currentSession.createQuery(
+						"delete from Customer where id=:customerId");
 		theQuery.setParameter("customerId", theId);
 		
-		theQuery.executeUpdate();		
-	}
-
-	@Override
-	public Customer getCustomer(String email) {
-
-		Session currentSession = entityManager.unwrap(Session.class);
-		
-		TypedQuery<Customer> theQuery = 
-				currentSession.createQuery("select c from Customer c where email=:email", Customer.class);
-		theQuery.setParameter("email", email);
-		Customer theCustomer = theQuery.getSingleResult();
-		
-		// now retrieve/read from database using the primary key
-		
-		return theCustomer;
+		theQuery.executeUpdate();
 	}
 
 

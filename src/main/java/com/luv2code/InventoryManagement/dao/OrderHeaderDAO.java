@@ -7,17 +7,11 @@ import com.luv2code.InventoryManagement.entity.OrderHeader;
 
 public interface OrderHeaderDAO {
 
-	List<OrderHeader> getOrderHeader();
-
-	public OrderHeader getLastOrderHeader();
-
-	public void saveOrderHeader(OrderHeader theOrderHeader);
-
-	public OrderHeader getOrderHeaderByNumber(String orderHeaderId);
+	public List<OrderHeader> findAll();
 	
-	public OrderHeader getOrderHeaderById(Integer orderHeaderId);
-
-	public List<OrderHeader> getAllOrders();
-
-	public List<OrderHeader> getAllOrders(String type);
+	public OrderHeader findById(int theId);
+	
+	public void save(OrderHeader theOrderHeader);
+	
+	public void deleteById(int theId);
 }

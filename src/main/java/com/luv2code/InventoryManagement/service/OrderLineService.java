@@ -3,16 +3,18 @@ package com.luv2code.InventoryManagement.service;
 import java.util.List;
 
 import com.luv2code.InventoryManagement.dto.OrderLineDTO;
+import com.luv2code.InventoryManagement.entity.OrderLine;
 
 public interface OrderLineService {
 
-	public List<OrderLineDTO> getOrderLines();
-
-	public void saveOrderLine(OrderLineDTO theOrderLine);
-
-	List<OrderLineDTO> getOrderLinesbyOrderHeaderID(int orderHeaderID);
+public List<OrderLine> findAll();
 	
-	public void deleteOrderLine(int theId);
+	public OrderLine findById(int theId);
+	
+	public void save(OrderLine theOrderLine);
+	
+	public void deleteById(int theId);
+	
 	
 	
 }

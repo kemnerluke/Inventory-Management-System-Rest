@@ -8,55 +8,42 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.luv2code.InventoryManagement.dao.CustomerDAO;
+import com.luv2code.InventoryManagement.dao.EmployeeDAO;
 import com.luv2code.InventoryManagement.dto.CustomerDTO;
 import com.luv2code.InventoryManagement.entity.Customer;
+import com.luv2code.InventoryManagement.entity.Employee;
 import com.luv2code.InventoryManagement.service.CustomerService;
 import com.luv2code.InventoryManagement.service.mapper.CustomerMapper;
 
 @Service
-@Transactional
 public class CustomerServiceImpl implements CustomerService {
 
 	@Autowired
 	private CustomerDAO customerDAO;
-	
-	@Autowired
-	private CustomerMapper customerMapper;
-
-	public List<CustomerDTO> getCustomer() {
-
-		List<Customer> customers = customerDAO.getCustomers();
-
-		List<CustomerDTO> customerDTOList = new ArrayList<CustomerDTO>();
-		for (Customer c : customers) {
-			customerDTOList.add(customerMapper.mapToDTO(c));
-		}
-		return customerDTOList;
-	}
-
-	
 
 	@Override
-	public void saveCustomer(CustomerDTO theCustomer) {
-		Customer customer = customerMapper.mapToEntity(theCustomer);
-		customerDAO.saveCustomer(customer);
-	}
-
-	
-	
-
-	@Override
-	public CustomerDTO getCustomer(int theId) {
-		Customer customer = customerDAO.getCustomer(theId);
-		
-		return customerMapper.mapToDTO(customer);
-
+	@Transactional
+	public List<Customer> findAll() {
+		return customerDAO.findAll();
 	}
 
 	@Override
-	public void deleteCustomer(int theId) {
-		
-		customerDAO.deleteCustomer(theId);
+	@Transactional
+	public Customer findById(int theId) {
+		return customerDAO.findById(theId);
 	}
+
+	@Override
+	@Transactional
+	public void save(Customer theCustomer) {
+		customerDAO.save(theCustomer);
+	}
+
+	@Override
+	@Transactional
+	public void deleteById(int theId) {
+		customerDAO.deleteById(theId);
+	}
+
 
 }

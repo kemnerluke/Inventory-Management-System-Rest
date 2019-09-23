@@ -4,16 +4,18 @@ package com.luv2code.InventoryManagement.service;
 import java.util.List;
 
 import com.luv2code.InventoryManagement.dto.CustomerDTO;
+import com.luv2code.InventoryManagement.entity.Customer;
 
 public interface CustomerService {
 
 		
-		public List<CustomerDTO> getCustomer();
-		
-		public void saveCustomer(CustomerDTO theCustomer);
 
-		public CustomerDTO getCustomer(int theId);
-
-		public void deleteCustomer(int theId);
+	public List<Customer> findAll();
+	
+	public Customer findById(int theId);
+	
+	public void save(Customer theCustomer);
+	
+	public void deleteById(int theId);
 		
 	}

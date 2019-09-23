@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 import com.luv2code.InventoryManagement.dao.OrderHeaderDAO;
 import com.luv2code.InventoryManagement.entity.Customer;
 import com.luv2code.InventoryManagement.entity.OrderHeader;
+import com.luv2code.InventoryManagement.entity.OrderHeader;
 import com.luv2code.InventoryManagement.entity.OrderLine;
 
 @Repository
@@ -23,92 +24,65 @@ public class OrderHeaderDAOImpl implements OrderHeaderDAO {
 
 	@Autowired
 	private EntityManager entityManager;
-
+	
+	
 	@Override
-	public List<OrderHeader> getOrderHeader() {
-
-		// note change to get orderHeaders^
+	public List<OrderHeader> findAll() {
 
 		// get the current hibernate session
-
 		Session currentSession = entityManager.unwrap(Session.class);
-
+		
 		// create a query
-		Query<OrderHeader> theQuery = currentSession.createQuery("from OrderHeader", OrderHeader.class);
-
+		Query<OrderHeader> theQuery =
+				currentSession.createQuery("from OrderHeader", OrderHeader.class);
+		
 		// execute query and get result list
-		List<OrderHeader> orderHeader = theQuery.list();
-
-		// return the results
-		return orderHeader;
+		List<OrderHeader> OrderHeaders = theQuery.getResultList();
+		
+		// return the results		
+		return OrderHeaders;
 	}
+
 
 	@Override
-	public OrderHeader getLastOrderHeader() {
+	public OrderHeader findById(int theId) {
+
+		// get the current hibernate session
 		Session currentSession = entityManager.unwrap(Session.class);
-
-		Query<OrderHeader> query = currentSession
-				.createQuery("select oh from OrderHeader oh order by oh.orderHeaderId desc", OrderHeader.class);
-		query.setMaxResults(1);
-		OrderHeader oh = query.uniqueResult();
-
-//		//OrderHeader oh1 = currentSession.createQuery("select oh from OrderHeader oh where oh.orderHeaderId = 11", OrderHeader.class).uniqueResult();
-//		OrderHeader oh1 = currentSession.get(OrderHeader.class, 11);
-//		for (OrderLine ol : oh1.getOrderLines()) {
-//			System.out.println("Order Line :: " + ol.getLineNumber() + " | " + ol.getOrderPackQuantity());
-//		}
-		currentSession.flush();
-
-		return oh;
+		
+		// get the OrderHeader
+		OrderHeader theOrderHeader =
+				currentSession.get(OrderHeader.class, theId);
+		
+		// return the OrderHeader
+		return theOrderHeader;
 	}
+
 
 	@Override
-	public void saveOrderHeader(OrderHeader orderHeader) {
+	public void save(OrderHeader theOrderHeader) {
+
+		// get the current hibernate session
 		Session currentSession = entityManager.unwrap(Session.class);
-
-		currentSession.saveOrUpdate(orderHeader);
-
+		
+		// save OrderHeader
+		currentSession.saveOrUpdate(theOrderHeader);
 	}
+
 
 	@Override
-	public OrderHeader getOrderHeaderById(Integer orderHeaderId) {
+	public void deleteById(int theId) {
+		
+		// get the current hibernate session
 		Session currentSession = entityManager.unwrap(Session.class);
-
-		Integer id = ((Number) orderHeaderId).intValue();
-		OrderHeader oh = currentSession.get(OrderHeader.class, id);
-		return oh;
+				
+		// delete object with primary key
+		Query theQuery = 
+				currentSession.createQuery(
+						"delete from OrderHeader where order_header_id=:orderHeaderId");
+		theQuery.setParameter("orderHeaderId", theId);
+		
+		theQuery.executeUpdate();
 	}
 
-	@Override
-	public List<OrderHeader> getAllOrders() {
-		Session currentSession = entityManager.unwrap(Session.class);
-
-		Query query = currentSession.createQuery("select oh from OrderHeader oh");
-		List<OrderHeader> orderHeaders = query.list();
-		return orderHeaders;
-	}
-
-	@Override
-	public List<OrderHeader> getAllOrders(String type) {
-		Session currentSession = entityManager.unwrap(Session.class);
-
-		Query query = currentSession.createQuery("select oh from OrderHeader oh where oh.type in :typeParam");
-		query.setParameter("typeParam", type);
-		List<OrderHeader> orderHeaders = query.list();
-		return orderHeaders;
-	}
-
-	@Override
-	public OrderHeader getOrderHeaderByNumber(String OrderHeaderNumber) {
-		Session currentSession = entityManager.unwrap(Session.class);
-
-		TypedQuery<OrderHeader> theQuery = currentSession
-				.createQuery("select c from OrderHeader c where number=:number", OrderHeader.class);
-		theQuery.setParameter("number", OrderHeaderNumber);
-		OrderHeader orderHeader = theQuery.getSingleResult();
-
-		// now retrieve/read from database using the primary key
-
-		return orderHeader;
-	}
 }
