@@ -36,12 +36,12 @@ public class ProductRestController {
 	// add mapping for GET /Products/{ProductId}
 	
 	@GetMapping("/products/{productId}")
-	public Product getProduct(@PathVariable int ProductId) {
+	public Product getProduct(@PathVariable int productId) {
 		
-		Product theProduct = productService.findById(ProductId);
+		Product theProduct = productService.findById(productId);
 		
 		if (theProduct == null) {
-			throw new RuntimeException("Product id not found - " + ProductId);
+			throw new RuntimeException("Product id not found - " + productId);
 		}
 		
 		return theProduct;
@@ -75,19 +75,19 @@ public class ProductRestController {
 	// add mapping for DELETE /Products/{ProductId} - delete Product
 	
 	@DeleteMapping("/products/{productId}")
-	public String deleteProduct(@PathVariable int ProductId) {
+	public String deleteProduct(@PathVariable int productId) {
 		
-		Product tempProduct = productService.findById(ProductId);
+		Product tempProduct = productService.findById(productId);
 		
 		// throw exception if null
 		
 		if (tempProduct == null) {
-			throw new RuntimeException("Product id not found - " + ProductId);
+			throw new RuntimeException("Product id not found - " + productId);
 		}
 		
-		productService.deleteById(ProductId);
+		productService.deleteById(productId);
 		
-		return "Deleted Product id - " + ProductId;
+		return "Deleted Product id - " + productId;
 	}
 	
 }

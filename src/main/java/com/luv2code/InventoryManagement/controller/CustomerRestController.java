@@ -37,12 +37,12 @@ public class CustomerRestController {
 	// add mapping for GET /Customers/{CustomerId}
 	
 	@GetMapping("/customers/{customerId}")
-	public Customer getCustomer(@PathVariable int CustomerId) {
+	public Customer getCustomer(@PathVariable int customerId) {
 		
-		Customer theCustomer = customerService.findById(CustomerId);
+		Customer theCustomer = customerService.findById(customerId);
 		
 		if (theCustomer == null) {
-			throw new RuntimeException("Customer id not found - " + CustomerId);
+			throw new RuntimeException("Customer id not found - " + customerId);
 		}
 		
 		return theCustomer;
@@ -76,19 +76,19 @@ public class CustomerRestController {
 	// add mapping for DELETE /Customers/{CustomerId} - delete Customer
 	
 	@DeleteMapping("/customers/{customerId}")
-	public String deleteCustomer(@PathVariable int CustomerId) {
+	public String deleteCustomer(@PathVariable int customerId) {
 		
-		Customer tempCustomer = customerService.findById(CustomerId);
+		Customer tempCustomer = customerService.findById(customerId);
 		
 		// throw exception if null
 		
 		if (tempCustomer == null) {
-			throw new RuntimeException("Customer id not found - " + CustomerId);
+			throw new RuntimeException("Customer id not found - " + customerId);
 		}
 		
-		customerService.deleteById(CustomerId);
+		customerService.deleteById(customerId);
 		
-		return "Deleted Customer id - " + CustomerId;
+		return "Deleted Customer id - " + customerId;
 	}
 	
 	

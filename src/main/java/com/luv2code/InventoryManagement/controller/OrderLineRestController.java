@@ -36,12 +36,12 @@ import com.luv2code.InventoryManagement.service.OrderLineService;
 		// add mapping for GET /OrderLines/{OrderLineId}
 		
 		@GetMapping("/orderLines/{orderLineId}")
-		public OrderLine getOrderLine(@PathVariable int OrderLineId) {
+		public OrderLine getOrderLine(@PathVariable int orderLineId) {
 			
-			OrderLine theOrderLine = OrderLineService.findById(OrderLineId);
+			OrderLine theOrderLine = OrderLineService.findById(orderLineId);
 			
 			if (theOrderLine == null) {
-				throw new RuntimeException("OrderLine id not found - " + OrderLineId);
+				throw new RuntimeException("OrderLine id not found - " + orderLineId);
 			}
 			
 			return theOrderLine;
@@ -75,19 +75,19 @@ import com.luv2code.InventoryManagement.service.OrderLineService;
 		// add mapping for DELETE /OrderLines/{OrderLineId} - delete OrderLine
 		
 		@DeleteMapping("/orderLines/{orderLineId}")
-		public String deleteOrderLine(@PathVariable int OrderLineId) {
+		public String deleteOrderLine(@PathVariable int orderLineId) {
 			
-			OrderLine tempOrderLine = OrderLineService.findById(OrderLineId);
+			OrderLine tempOrderLine = OrderLineService.findById(orderLineId);
 			
 			// throw exception if null
 			
 			if (tempOrderLine == null) {
-				throw new RuntimeException("OrderLine id not found - " + OrderLineId);
+				throw new RuntimeException("OrderLine id not found - " + orderLineId);
 			}
 			
-			OrderLineService.deleteById(OrderLineId);
+			OrderLineService.deleteById(orderLineId);
 			
-			return "Deleted OrderLine id - " + OrderLineId;
+			return "Deleted OrderLine id - " + orderLineId;
 		}
 		
 }
