@@ -72,7 +72,7 @@ import com.luv2code.InventoryManagement.service.OrderLineService;
 			return theOrderLine;
 		}
 		
-		// add mapping for DELETE /OrderLines/{OrderLineId} - delete OrderLine
+		// add mapping for DELETE /OrderLines/{OrderLineId} - delete OrderLine.
 		
 		@DeleteMapping("/orderLines/{orderLineId}")
 		public String deleteOrderLine(@PathVariable int orderLineId) {

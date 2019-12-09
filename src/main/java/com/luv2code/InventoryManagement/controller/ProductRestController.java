@@ -62,7 +62,7 @@ public class ProductRestController {
 		return theProduct;
 	}
 	
-	// add mapping for PUT /Products - update existing Product
+	// add mapping for PUT /Products - update existing Product.
 	
 	@PutMapping("/products")
 	public Product updateProduct(@RequestBody Product theProduct) {

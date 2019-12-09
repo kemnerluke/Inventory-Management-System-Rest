@@ -48,7 +48,7 @@ public class CustomerRestController {
 		return theCustomer;
 	}
 	
-	// add mapping for POST /Customers - add new Customer
+	// add mapping for POST /Customers - add new Customer.
 	
 	@PostMapping("/customers")
 	public Customer addCustomer(@RequestBody Customer theCustomer) {
