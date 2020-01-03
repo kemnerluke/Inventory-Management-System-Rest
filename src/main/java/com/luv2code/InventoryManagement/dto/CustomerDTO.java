@@ -16,7 +16,7 @@ public class CustomerDTO {
 	
 	private String fullName;
 
-	List<OrderHeaderDTO> orderHeader = new ArrayList<OrderHeaderDTO>();
+	
 
 	public int getId() {
 		return id;
@@ -98,16 +98,11 @@ public class CustomerDTO {
 
 
 
-	public List<OrderHeaderDTO> getOrderHeader() {
-		return orderHeader;
-	}
+	
 
 
 
 
-
-	public void setOrderHeader(List<OrderHeaderDTO> orderHeader) {
-		this.orderHeader = orderHeader;
-	}
+	
 
 }
